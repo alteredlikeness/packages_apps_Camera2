@@ -313,6 +313,7 @@ public class CameraSettings {
         ListPreference videoHdr = group.findPreference(KEY_VIDEO_HDR);
         ListPreference pictureFormat = group.findPreference(KEY_PICTURE_FORMAT);
         ListPreference storage = group.findPreference(KEY_STORAGE);
+        ListPreference hfr = group.findPreference(KEY_VIDEO_HIGH_FRAME_RATE);
 
         if (!mParameters.isPowerModeSupported() && powerMode != null) {
             removePreference(group, powerMode.getKey());
@@ -410,6 +411,10 @@ public class CameraSettings {
             buildStorage(group, storage);
         }
 
+        if (hfr != null) {
+            filterUnsupportedOptions(group,
+                    hfr, mParameters.getSupportedVideoHighFrameRateModes());
+        }
     }
 
     private void initPreference(PreferenceGroup group) {
